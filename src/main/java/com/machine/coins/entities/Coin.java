@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "table_coin")
+@Table(name = "tb_coin")
 @Getter
 @Setter
 @Builder
@@ -25,7 +25,7 @@ public class Coin implements Serializable {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "coin_machine_id", insertable = false, updatable = false)
     private CoinsMachine coinMachine;
 
     @Override

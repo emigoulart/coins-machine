@@ -26,7 +26,6 @@ public class CoinsMachineControllerTest {
 
     private Integer change;
 
-
     @BeforeEach
     void setUp() throws Exception {
         amount = 2;

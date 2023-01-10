@@ -28,20 +28,16 @@ public class CoinsMachineServiceTest {
 
     private Double amount;
 
-    private Integer maxCoins;
-
-    private double[] denoms = {0.01, 0.05, 0.10, 0.25};
-
     @BeforeEach
     void setUp() throws Exception {
         amount = 2D;
-        maxCoins=100;
+
     }
 
     @Test
     public void getCoinsChangeSuccess() {
 
-        var coinsDto = service.getCoinsChange(denoms, amount,maxCoins);
+        var coinsDto = service.getCoinsChange(amount);
 
         Assertions.assertNotNull(coinsDto);
         Assertions.assertEquals(amount, coinsDto.getAmount());
@@ -53,7 +49,7 @@ public class CoinsMachineServiceTest {
                 " please try with another bill";
 
         var exception = Assertions.assertThrows(CoinsMachineException.class, () -> {
-            service.getCoinsChange(denoms, 100, maxCoins);
+            service.getCoinsChange(100);
         });
 
         Assertions.assertEquals(message, exception.getMessage());
@@ -65,7 +61,7 @@ public class CoinsMachineServiceTest {
                 " Please, make sure to provide a bill contained in this set: 1,2,5,10,20,50,100.";
 
         var exception = Assertions.assertThrows(CoinsMachineException.class, () -> {
-            service.getCoinsChange(denoms, 30, maxCoins);
+            service.getCoinsChange(30);
         });
 
         Assertions.assertEquals(message, exception.getMessage());

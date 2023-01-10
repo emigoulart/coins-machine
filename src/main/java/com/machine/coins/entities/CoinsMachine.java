@@ -22,7 +22,7 @@ public class CoinsMachine implements Serializable {
 
     private Integer maxCoinsPerType;
 
-    @OneToMany(targetEntity = Coin.class, mappedBy = "coinMachine", fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Coin.class, mappedBy = "coinMachine", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Coin> coins;
 
     @Override

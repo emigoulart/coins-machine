@@ -10,6 +10,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CoinsMachineDTO {
+
+    private Long id;
+
     private Double amount;
 
     private Integer numberOfCoins;

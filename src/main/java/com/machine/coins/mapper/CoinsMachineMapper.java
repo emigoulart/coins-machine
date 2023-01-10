@@ -13,6 +13,7 @@ public class CoinsMachineMapper {
     public static CoinsMachineDTO mapToDTO(CoinsMachine coinsMachine) {
         return CoinsMachineDTO
                 .builder()
+                .id(coinsMachine.getId())
                 .coins(getCoinsDTOList(coinsMachine.getCoins()))
                 .maxCoinsPerType(coinsMachine.getMaxCoinsPerType())
                 .build();
@@ -21,6 +22,7 @@ public class CoinsMachineMapper {
     public static CoinDTO mapToDTO(Coin coin) {
         return CoinDTO
                 .builder()
+                .id(coin.getId())
                 .coinValue(coin.getCoinValue())
                 .quantity(coin.getQuantity())
                 .build();
@@ -29,6 +31,7 @@ public class CoinsMachineMapper {
     public static Coin mapToEntity(CoinDTO coinDto) {
         return Coin
                 .builder()
+                .id(coinDto.getId())
                 .coinValue(coinDto.getCoinValue())
                 .quantity(coinDto.getQuantity())
                 .build();
@@ -37,6 +40,7 @@ public class CoinsMachineMapper {
     public static CoinsMachine mapToEntity(CoinsMachineDTO coinsMachineDTO) {
         return CoinsMachine
                 .builder()
+                .id(coinsMachineDTO.getId())
                 .coins(getCoinsList(coinsMachineDTO.getCoins()))
                 .maxCoinsPerType(coinsMachineDTO.getMaxCoinsPerType())
                 .build();
