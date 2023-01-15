@@ -36,21 +36,22 @@ public class CoinsMachineService {
         Map<Double, Integer> coins = new HashMap<>();
         int numberOfCoins = 0;
         int count;
-        int i = availableCoins.getCoins().size() - 1;
+        availableCoins.getCoins().sort(Comparator.comparingDouble(CoinDTO::getCoinValue));// OnlogN
+        int i = availableCoins.getCoins().size() - 1;// index of the biggest coin
         while (i >= 0) {
             count = 0;
             var currentCoin = availableCoins.getCoins().get(i);
-            while (amount >= currentCoin.getCoinValue() && count < currentCoin.getQuantity()) {
+            while (amount >= currentCoin.getCoinValue() && count < currentCoin.getQuantity()) {//Find the biggest coin that is less than given amount
                 count++;
-                amount = amount - currentCoin.getCoinValue();
-                coins.put(currentCoin.getCoinValue(), count);
+                amount = amount - currentCoin.getCoinValue();//subtract coin from amount
+                coins.put(currentCoin.getCoinValue(), count);// store the coin and the quantity
             }
             i--;
         }
 
         List<CoinDTO> coinsToReturnDTO = new ArrayList<>();
         List<CoinDTO> coinsToUpdate = new ArrayList<>();
-        for (Map.Entry<Double, Integer> mCoins : coins.entrySet()) {
+        for (Map.Entry<Double, Integer> mCoins : coins.entrySet()) {// loop the stored coins in the map to retrieve the values
 
             log.info("Coin {}: and quantity {}: ", mCoins.getKey(), mCoins.getValue());
             coinsToReturnDTO.add(CoinDTO.
@@ -67,10 +68,10 @@ public class CoinsMachineService {
                     .build();
 
             final Integer balance = maintenanceService.getCurrentBalance(availableCoins, coinUpdatable);
-            coinUpdatable.setQuantity(balance);
+            coinUpdatable.setQuantity(balance);//updating balance
 
             coinsToUpdate.add(coinUpdatable);
-            change = +mCoins.getKey() * mCoins.getValue();
+            change += mCoins.getKey() * mCoins.getValue();
             numberOfCoins += mCoins.getValue();
         }
 
